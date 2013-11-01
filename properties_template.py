@@ -23,9 +23,9 @@ Property.Version = 1
 #
 Property.root_path = ''
 Property.root_web_path = ''
-Property.news = ''
-Property.weather = ''
-Property.header = ''
+Property.news = 'news'
+Property.weather = 'weather'
+Property.header = 'header'
 #
 #   API Tokens
 #
@@ -53,4 +53,4 @@ Property.user_TimeZone = ''
 Property.user_city = ''
 Property.user_state = ''
 
-Property.on_server = False
+Property.on_server = True
