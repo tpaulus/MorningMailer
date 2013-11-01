@@ -31,37 +31,158 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <p>Send an email to you every morning, any time of day for that mater, with the important information for your day.</p>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Read the story of how this project came to be on my website, <a href="http://tompaulus.com/journal/software/morning-mailer/">tompaulus.com</a></p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<hr><h3>
+<a name="downloadclone-this-repo" class="anchor" href="#downloadclone-this-repo"><span class="octicon octicon-link"></span></a>Download/Clone this Repo</h3>
+
+<p>To use this program you will need:
+1. Python 2.6 or any later version of Python 2.x
+2. A Server to Host your image files, It would be best if this script runs on that server
+3. A linux computer/server to execute this script
+4. A working SMTP account</p>
+
+<p>Clone The Repo</p>
+
+<pre><code>$ git@github.com:tpaulus/MorningMailer.git
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h3>
+<a name="accounts" class="anchor" href="#accounts"><span class="octicon octicon-link"></span></a>Accounts</h3>
+
+<h4>
+<a name="todoist" class="anchor" href="#todoist"><span class="octicon octicon-link"></span></a><a href="https://todoist.com/">Todoist</a>
+</h4>
+
+<p><em>A powerful task manager for personal productivity. Lets you manage tasks from your inbox, browser, desktop, or mobile device. For people who know great accomplishments are built through small daily tasks.</em></p>
+
+<p>All that you need to do is to create an account and start tracking your tasks.</p>
+
+<h4>
+<a name="weather-underground" class="anchor" href="#weather-underground"><span class="octicon octicon-link"></span></a><a href="http://www.wunderground.com/weather/api/">Weather Underground</a>
+</h4>
+
+<p><em>The First Internet Weather Service!</em>
+Sign up for their free "ANVIL PLAN" to get access to their stunning animated Radar Images and accurate weather forecasts. It's free, just don't request data less than 500 times per day, with a max of 10 calls per minute and you will be fine.</p>
+
+<h4>
+<a name="the-new-york-times" class="anchor" href="#the-new-york-times"><span class="octicon octicon-link"></span></a><a href="http://developer.nytimes.com/">The New York Times</a>
+</h4>
+
+<p><em>America's Newspaper</em>
+You will need to request a free API Key for their "THE TIMES NEWSWIRE API", again free to use, as long as you don't exceed 5,000 calls pre-day at a max 8 calls per second.</p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="properties-file" class="anchor" href="#properties-file"><span class="octicon octicon-link"></span></a>Properties File</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<h4>
+<a name="web-urls" class="anchor" href="#web-urls"><span class="octicon octicon-link"></span></a>Web URLs</h4>
+
+<p>This script is designed to run on the server that hosts the files that will be displayed in the email.</p>
+
+<pre><code>Property.root_path = ''      # This is the internal path of the folder
+                             # were the files that will be displayed in
+                             # your emails is.
+                             # ex. /home/tompaulu/public_html/img/
+Property.root_web_path = ''  # This is the domain name of your server
+                             # plus the folder the images are in.
+                             # ex. http://tompaulus.com/img
+Property.news = 'news'       # The name of the folder where the news
+                             # pictures are locate. Use the Default
+Property.weather = 'weather' # The name of the folder for the radar.gif map
+Property.header = 'header'   # The name of the folder containing all the
+                             # header images
+</code></pre>
+
+<h4>
+<a name="api-tokens" class="anchor" href="#api-tokens"><span class="octicon octicon-link"></span></a>API Tokens</h4>
+
+<p>This is where the tokens/API Keys you just got will go. We'll enter your Todoist data in the next step.</p>
+
+<pre><code>Property.wunderground = ''  # Your Anvil API key you got from Weather Underground
+Property.nyt = ''           # Your Newswire API Key from the New York Times
+</code></pre>
+
+<h4>
+<a name="todoist-1" class="anchor" href="#todoist-1"><span class="octicon octicon-link"></span></a>Todoist</h4>
+
+<p>Todoist lets us login with our username and password to access the data; simply enter it in the appropriate fields. </p>
+
+<pre><code>Property.todoist_email = ''
+Property.todoist_password = ''
+</code></pre>
+
+<h4>
+<a name="email" class="anchor" href="#email"><span class="octicon octicon-link"></span></a>Email</h4>
+
+<p>The script will send the email to the address you provide it when it has fetched your all data. This is the place where we will enter all that information.</p>
+
+<pre><code>Property.email_to = ''        # Your Email address,
+                              # or the one where the email will be sent to
+Property.email_subject = 'Good Morning'  # The Email's Subject
+Property.email_server = ''    # The name of the server that handles your SMTP
+                              # ex.  smtp.johndoe.com
+Property.email_port = 0       # The port on which your SMTP server operates.
+                              # ex. 25, 465, 587
+Property.email_from = ''      # Who will the email be sent from
+                              # Ex. &lt;Python&gt;python@myServer.com
+Property.email_login = ''     # Login Info for the SMTP server, _if required_
+Property.email_password = ''
+</code></pre>
+
+<h4>
+<a name="user-info" class="anchor" href="#user-info"><span class="octicon octicon-link"></span></a>User Info</h4>
+
+<p>Your info, used for weather information.</p>
+
+<pre><code>Property.user_TimeZone = ''  # You can leave this blank;
+                             # Todoist should know your Time Zone
+Property.user_city = ''      # Enter the city that you live in
+Property.user_state = ''     # Enter the state that you live in 
+                             # Use the 2 letter abbreviation. ex. CA
+</code></pre>
+
+<h4>
+<a name="server-settings" class="anchor" href="#server-settings"><span class="octicon octicon-link"></span></a>Server Settings</h4>
+
+<p>The last option is very important!</p>
+
+<pre><code>Property.on_server = True
+</code></pre>
+
+<p>Set this true if running on the server that hosts your files, it enables/disables 'wget' which downlaods the images.</p>
 
 <h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<a name="testing" class="anchor" href="#testing"><span class="octicon octicon-link"></span></a>Testing</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>You can test each of the services by running their scripts. They will either prompt you for a login, or use the information from the properties file.</p>
 
 <h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<a name="sending-the-email" class="anchor" href="#sending-the-email"><span class="octicon octicon-link"></span></a>Sending the Email</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>First try ending the email by manually running:</p>
+
+<pre><code>python ./main.py
+</code></pre>
+
+<p>It should run without errors, if there are errors, check to see if the login information is correct. If everything runs; check the email and make sure that all the images and text is correct.</p>
+
+<h3>
+<a name="cron" class="anchor" href="#cron"><span class="octicon octicon-link"></span></a>CRON</h3>
+
+<p>Once everything works, you can setup an CRON job on your server. Set the time and other options, then tell it to execute this command:</p>
+
+<pre><code>cd &lt;location of the cloned repo&gt;; &lt;path for python&gt; ./main.py
+</code></pre>
 
 <h3>
 <a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>Submit an issue and I will try to help fix your problem. This is still a work in progress, but there should be no errors in this repository. </p>
+
+<p>Check out my website <a href="http://tompaulus.com">http://tompaulus.com</a></p>
       </section>
     </div>
 
@@ -73,7 +194,17 @@ $ git checkout gh-pages
       </footer>
     </div>
 
-    
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-23345467-4");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
 
   </body>
 </html>
