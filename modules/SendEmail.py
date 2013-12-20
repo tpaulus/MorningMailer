@@ -6,6 +6,7 @@ from email.mime.text import MIMEText
 from email.utils import formatdate
 from properties import Property
 
+
 class mail(object):
     def __init__(self):
         self.smtp_user = Property.email_login

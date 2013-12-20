@@ -1,3 +1,5 @@
+# TODO Add instructions for user on how to properly use this file and its necessary renaming
+
 from copy import deepcopy
 
 

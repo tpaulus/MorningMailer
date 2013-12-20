@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from lib.dateutil import tz
 
 import lib.requests as Requests
-from properties import *
+from properties import Property
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -32,7 +32,7 @@ class Task(object):
         return string
 
 
-class Todoist(object):
+class Todos(object):
     def __init__(self, email, password):
         auth = Requests.get('https://todoist.com/API/login?email=' + email + '&password=' + password).json()
         self.token = auth['token']
@@ -105,7 +105,7 @@ class Todoist(object):
 if __name__ == '__main__':
     login = raw_input("Todoist User Name: ")
     password = raw_input("Password: ")
-    t = Todoist(login, password)
+    t = Todos(login, password)
     task_list = t.get()
     for task in task_list:
         print task

@@ -4,17 +4,16 @@
 from __future__ import unicode_literals
 import os
 import random
-from datetime import datetime
-from parse import *
-from mailer import *
-from weather import *
-from todo import *
-from news import *
-from properties import Property
+from modules.parse import Greeting
+from modules.SendEmail import *
+from modules.wunderground import *
+from modules.todoist import *
+from modules.nyt import *
+from modules.properties import Property
 
 
 def greeting():
-    p = Parse()
+    p = Greeting()
     p.get()
     return p.get_random()
 
@@ -29,12 +28,13 @@ def weather():
 
 
 def todo():
-    t = Todoist(Property.todoist_email, Property.todoist_password)
+    t = Todos(Property.todoist_email, Property.todoist_password)
     task_list = t.get()
     section = '<ul>'
     for task in task_list:
         due = datetime.strftime(task.due, '%a %b %d, %Y')
         text = task.name + ', Due: ' + due + ' - ' + task.project
+        # TODO fix usage of deprecated <font> tag
         if task.priority == 4:
             line = '<font color="#B8412B">' + text + '</font>'
         elif task.priority == 3:
@@ -54,7 +54,7 @@ def todo():
 
 
 def news():
-    news = NYT()
+    news = TopStroies()
     articles = news.get(4)
     for num in range(len(articles)):
         download(Property.news_url, str(num + 1) + ".jpg", articles[num].image)
