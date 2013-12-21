@@ -21,7 +21,7 @@ class mail(object):
             self.smtpserver.starttls()
             self.smtpserver.ehlo()
             self.smtpserver.login(self.smtp_user, self.smtp_password)
-            msg = MIMEText(message, 'html')
+            msg = MIMEText(message, 'html', _charset='utf-8')
             msg['Subject'] = subject
             msg['From'] = Property.email_from
             msg['To'] = to
