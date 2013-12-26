@@ -1,3 +1,5 @@
+# TODO Add instructions for user on how to properly use this file and its necessary renaming
+
 from copy import deepcopy
 
 
@@ -39,6 +41,8 @@ Property.todoist_password = ''
 #
 #   Email
 #
+Property.email_template_loc = './modules/email_template.html'
+Property.email_result_loc = './email.html'
 Property.email_to = ''
 Property.email_subject = 'Good Morning'
 Property.email_server = ''
@@ -54,3 +58,4 @@ Property.user_city = ''
 Property.user_state = ''
 
 Property.on_server = True
+Property.send_email = True

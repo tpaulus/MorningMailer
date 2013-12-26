@@ -5,9 +5,9 @@ from __future__ import unicode_literals
 import random
 
 
-class Parse(object):
+class Greeting(object):
     def __init__(self):
-        self.location = "./good_morning.csv"
+        self.location = "./modules/good_morning.csv"
         self.index = {}
         self.keys = []
 

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<title>Good Morning!</title>
+<title>{title}</title>
 <style type="text/css">
 /* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
 #outlook a {
@@ -772,15 +772,7 @@ h4 {
                         <td align="center" valign="top">
                             <!-- BEGIN PREHEADER // -->
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader">
-                                <tr>
-                                    <td valign="top" class="preheaderContent"
-                                        style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px;"
-                                        mc:edit="preheader_content00">
-                                        <python id="header"/>
-                                        </br>
-                                        <python id="weather-text"/>
-                                    </td>
-                                </tr>
+                                {summary}
                             </table>
                             <!-- // END PREHEADER -->
                         </td>
@@ -789,11 +781,7 @@ h4 {
                         <td align="center" valign="top">
                             <!-- BEGIN HEADER // -->
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader">
-                                <tr>
-                                    <td valign="top" class="headerContent">
-                                        <python id="image-header"/>
-                                    </td>
-                                </tr>
+                                        {header_image}
                             </table>
                             <!-- // END HEADER -->
                         </td>
@@ -802,31 +790,9 @@ h4 {
                         <td align="center" valign="top">
                             <!-- BEGIN BODY // -->
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
-                                <tr>
-                                    <td valign="top" class="bodyContent" mc:edit="body_content00">
-                                        <h1>
-                                            <python id="header"/>
-                                        </h1>
-                                        <h3>
-                                            <python id="date"/>
-                                        </h3>
-                                        <python id="weather-text"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="bodyContent" style="padding-top:0; padding-bottom:0;">
-                                        <img src="YourWebSite.com/img/weather/radar.gif"
-                                             style="max-width:560px;" id="bodyImage" mc:label="body_image"
-                                             mc:edit="body_image" mc:allowtext/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td valign="top" class="bodyContent" mc:edit="body_content01">
-                                        <h2>Todoist Tasks</h2>
-                                        <h4>Tasks due in the next 3 to 4 days.</h4>
-                                        <python id="tasks"/>
-                                    </td>
-                                </tr>
+                                {body_r1}
+                                {body_image}
+                                {body_r2}
                             </table>
                             <!-- // END BODY -->
                         </td>
@@ -835,93 +801,13 @@ h4 {
                         <td align="center" valign="top">
                             <!-- BEGIN COLUMNS // -->
                             <table border="0" cellpadding="20" cellspacing="0" width="100%" id="templateColumns">
-                                <tr mc:repeatable>
-                                    <td align="left" valign="top" style="padding-bottom:0;">
-                                        <table align="left" border="0" cellpadding="0" cellspacing="0"
-                                               class="templateColumnContainer">
-                                            <tr>
-                                                <td class="leftColumnContent">
-                                                    <img src="YourWebSite.com/img/news/1.jpg"
-                                                         style="max-width:260px;" class="columnImage"
-                                                         mc:label="left_column_image" mc:edit="left_column_image"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td valign="top" class="leftColumnContent"
-                                                    mc:edit="left_column_content">
-                                                    <h3>
-                                                        <python id="news-1-headline"/>
-                                                    </h3>
-                                                    <python id="news-1-body"/>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <table align="right" border="0" cellpadding="0" cellspacing="0"
-                                               class="templateColumnContainer">
-                                            <tr>
-                                                <td class="rightColumnContent">
-                                                    <img src="YourWebSite.com/img/news/2.jpg"
-                                                         style="max-width:260px;" class="columnImage"
-                                                         mc:label="right_column_image" mc:edit="right_column_image"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td valign="top" class="rightColumnContent"
-                                                    mc:edit="right_column_content">
-                                                    <h3>
-                                                        <python id="news-2-headline"/>
-                                                    </h3>
-                                                    <python id="news-2-body"/>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr mc:repeatable>
-                                    <td align="left" valign="top" style="padding-bottom:0;">
-                                        <table align="left" border="0" cellpadding="0" cellspacing="0"
-                                               class="templateColumnContainer">
-                                            <tr>
-                                                <td class="leftColumnContent">
-                                                    <img src="YourWebSite.com/img/news/3.jpg"
-                                                         style="max-width:260px;" class="columnImage"
-                                                         mc:label="left_column_image" mc:edit="left_column_image"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td valign="top" class="leftColumnContent"
-                                                    mc:edit="left_column_content">
-                                                    <h3>
-                                                        <python id="news-3-headline"/>
-                                                    </h3>
-                                                    <python id="news-3-body"/>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <table align="right" border="0" cellpadding="0" cellspacing="0"
-                                               class="templateColumnContainer">
-                                            <tr>
-                                                <td class="rightColumnContent">
-                                                    <img src="<YourWebSite.com/img/news/4.jpg>"
-                                                         style="max-width:260px;" class="columnImage"
-                                                         mc:label="right_column_image" mc:edit="right_column_image"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td valign="top" class="rightColumnContent"
-                                                    mc:edit="right_column_content">
-                                                    <h3>
-                                                        <python id="news-4-headline"/>
-                                                    </h3>
-                                                    <python id="news-4-body"/>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
+                                {columns}
                             </table>
                             <!-- // END COLUMNS -->
                         </td>
+                    </tr>
+                    <tr>
+                        {footer}
                     </tr>
                 </table>
                 <!-- // END TEMPLATE -->
