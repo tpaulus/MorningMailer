@@ -10,6 +10,7 @@ from modules.wunderground import *
 from modules.todoist import *
 from modules.nyt import *
 from modules.properties import Property
+from modules.html import GenEmail
 
 
 def greeting():
@@ -30,27 +31,28 @@ def weather():
 def todo():
     t = Todos(Property.todoist_email, Property.todoist_password)
     task_list = t.get()
-    section = '<ul>'
+    section = '<dl>\n'
     for task in task_list:
-        due = datetime.strftime(task.due, '%a %b %d, %Y')
+        due = task.parsed_date()
         text = task.name + ', Due: ' + due + ' - ' + task.project
-        # TODO fix usage of deprecated <font> tag
         if task.priority == 4:
-            line = '<font color="#B8412B">' + text + '</font>'
+            color = ' style="color: #B8412B"'
         elif task.priority == 3:
-            line = '<font color="#3363A4">' + text + '</font>'
+            color = ' style="color: #3363A4"'
         elif task.priority == 2:
-            line = '<font color="#8EC4FF">' + text + '</font>'
+            color = ' style="color: #8EC4FF"'
         else:
-            line = text
+            color = ''
 
-        line = '<li>' + line + '</li>\n'
-        section += line
+        section += '<dt%s> %s </dt>\n' % (color, text)
+        if task.notes != tuple():
+            for note in task.notes:
+                section += '<dd>- %s </dd>\n' % note
 
-    section += '</ul>'
+    section += '</dl>'
+    if section == '<dl></dl>':
+        section = "You're good! Nothing todo in the next few days."
     return section
-    # TODO Add tags to list as sub elements
-    # The <dl> tag is used in conjunction with <dt> (defines terms/names) and <dd> (describes each term/name)
 
 
 def news():
@@ -61,63 +63,56 @@ def news():
     return articles
 
 
-def send(message):
+def send(email_message_location):
     email = mail()
-    if email.send(Property.email_to, Property.email_subject, message):
-        pass
-    else:
-        quit("Mail Send Error")
+    with open(email_message_location, 'r') as email_message:
+        if email.send(Property.email_to, Property.email_subject,  email_message.read()):
+            pass
+        else:
+            quit("Mail Send Error")
 
 
 def download(path, name, url):
     save_location = Property.root_path + path + name
-    wget = "wget -qO " + save_location + " " + url
-    chmod = "chmod 644 " + save_location
+    wget = "wget -qO %s %s" % (save_location, url)
+    chmod = "chmod 644 %s" % save_location
     if Property.on_server:
         os.system(wget)
         os.system(chmod)
 
 
-template_loc = './email_template.html'
-result_loc = './email.html'
 
-header_image = '<img src="' + Property.root_web_path + Property.header_url + '{0}.jpg"  style="max-width: 600px;' \
-    ' id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext/>'.format(
-    random.randint(0, 10))
+header_image = '%s%s%d.jpg' % (Property.root_web_path, Property.header_url, random.randint(0, 10))
 
 language, greeting = greeting()
 date = datetime.now().strftime("%A, %B %d, %Y")
 
 weather_text, weather_icon = weather()
+weather_text = 'It will be ' + weather_text
 
 article_list = news()
 
-html_tag_index = {
-    '<python id="image-header"/>': header_image,
-    '<python id="header"/>': greeting + ", that's " + language + ' for Good Morning!',
-    '<python id="date"/>': 'Today is ' + date + '.',
-    '<python id="weather-text"/>': 'It will be ' + weather_text,
-    '<python id="tasks"/>': todo(),
-    '<python id="news-1-headline"/>': article_list[0].title,
-    '<python id="news-1-body"/>': article_list[0].content,
-    '<python id="news-2-headline"/>': article_list[1].title,
-    '<python id="news-2-body"/>': article_list[1].content,
-    '<python id="news-3-headline"/>': article_list[2].title,
-    '<python id="news-3-body"/>': article_list[2].content,
-    '<python id="news-4-headline"/>': article_list[3].title,
-    '<python id="news-4-body"/>': article_list[3].content
-}
+# Begin Email Message Content
+message = GenEmail()
+message.title = 'Good Morning'
+message.summary = {'text': weather_text}
+message.header_image = {'url': header_image}
+message.body_r1 = {'title': greeting + ", that's " + language + ' for Good Morning!',
+                   'subtitle': 'Today is ' + date + '.', 'text': weather_text}
+message.body_image = {'url': 'http://tompaulus.com/img/weather/radar.gif'}
+message.body_r2 = {'title': 'Todoist Tasks', 'subtitle': 'Tasks due in the next 3 to 4 days.', 'text': todo()}
 
-with open(template_loc, 'r') as template:
-    message = template.read()
 
-for i in range(0, len(list(html_tag_index.keys()))):
-    tag = str(list(html_tag_index)[i])
-    replacement = str(html_tag_index[tag])
-    message = message.replace(tag, replacement)
+for a in range(0, len(article_list)):
+    url = 'http://tompaulus.com/img/news/%d.jpg' % int((a+1))
+    title = article_list[a].title
+    text = article_list[a].content
+    message.columns.append({'url': url, 'title': title, 'text': text})
 
-send(message)
 
-email = open(result_loc, 'w')
-email.write(message)
-email.close()
+message.generate()
+
+if Property.send_email:
+    send(Property.email_save_loc)
+else:
+    print "No email was sent, because you told me not to. Check email.html for your email message."
