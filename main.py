@@ -24,8 +24,7 @@ def weather():
     w.get_data()
     text, icon = w.get_forecast()
     map_URL = w.get_map_url()
-    download(Property.weather_url, "radar.gif", map_URL)
-    return text, icon
+    return text, icon, map_URL
 
 
 def todo():
@@ -58,8 +57,6 @@ def todo():
 def news():
     news = TopStroies()
     articles = news.get(4)
-    for num in range(len(articles)):
-        download(Property.news_url, str(num + 1) + ".jpg", articles[num].image)
     return articles
 
 
@@ -72,22 +69,12 @@ def send(email_message_location):
             quit("Mail Send Error")
 
 
-def download(path, name, url):
-    save_location = Property.root_path + path + name
-    wget = "wget -qO %s %s" % (save_location, url)
-    chmod = "chmod 644 %s" % save_location
-    if Property.on_server:
-        os.system(wget)
-        os.system(chmod)
-
-
-
 header_image = '%s%s%d.jpg' % (Property.root_web_path, Property.header_url, random.randint(0, 10))
 
 language, greeting = greeting()
 date = datetime.now().strftime("%A, %B %d, %Y")
 
-weather_text, weather_icon = weather()
+weather_text, weather_icon, weather_radar = weather()
 weather_text = 'It will be ' + weather_text
 
 article_list = news()
@@ -99,12 +86,12 @@ message.summary = {'text': weather_text}
 message.header_image = {'url': header_image}
 message.body_r1 = {'title': greeting + ", that's " + language + ' for Good Morning!',
                    'subtitle': 'Today is ' + date + '.', 'text': weather_text}
-message.body_image = {'url': 'http://tompaulus.com/img/weather/radar.gif'}
+message.body_image = {'url': weather_radar}
 message.body_r2 = {'title': 'Todoist Tasks', 'subtitle': 'Tasks due in the next 3 to 4 days.', 'text': todo()}
 
 
 for a in range(0, len(article_list)):
-    url = 'http://tompaulus.com/img/news/%d.jpg' % int((a+1))
+    url = article_list[a].image
     title = article_list[a].title
     text = article_list[a].content
     message.columns.append({'url': url, 'title': title, 'text': text})
