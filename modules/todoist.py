@@ -35,15 +35,15 @@ class Task(object):
     def parsed_date(self):
         parsed_date = ''
         if self.delta < timedelta(0):
-            if self.delta >= timedelta(1):
+            if self.delta.days >= -1:
                 parsed_date = 'Yesterday'
             else:
-                num_days = self.delta.days()
-                parsed_date = str(num_days) + 's Ago'
-        elif self.delta < timedelta(2):
-            if self.delta <= timedelta(1):
+                num_days = self.delta.days
+                parsed_date = str(abs(num_days)) + ' Days Ago'
+        elif self.delta.days < 2:
+            if self.delta.days < 1:
                 parsed_date = 'Today'
-            if self.delta <= timedelta(2):
+            elif self.delta.days < 2:
                 parsed_date = 'Tomorrow'
         else:
             parsed_date = datetime.strftime(self.due, '%A, %b %d')
