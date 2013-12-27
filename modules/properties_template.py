@@ -55,5 +55,4 @@ Property.user_TimeZone = ''
 Property.user_city = ''
 Property.user_state = ''
 
-Property.on_server = True
 Property.send_email = True

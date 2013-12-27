@@ -17,8 +17,8 @@ class Weather(object):
         self.json = []
         self.forecast = ''
         self.weather_icon = ''
-        self.map_url = 'http://api.wunderground.com/api/' + self.token + '/animatedradar/q/' + self.state + '/' + \
-                       self.city + '.gif?width=560&height=480&newmaps=1&noclutter=1'
+        self.map_url = 'http://api.wunderground.com/api/%s/animatedradar/q/%s/%s.gif?width=560&height=480' \
+                       '&newmaps=1&noclutter=1' % (self.token, self.state, self.city)
 
     def get_data(self):
         """
