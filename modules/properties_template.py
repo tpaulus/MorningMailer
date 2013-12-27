@@ -25,8 +25,6 @@ Property.Version = 1
 #
 Property.root_path = ''
 Property.root_web_path = ''
-Property.news = 'news'
-Property.weather = 'weather'
 Property.header = 'header'
 #
 #   API Tokens
