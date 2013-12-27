@@ -34,12 +34,11 @@ class Task(object):
 
     def parsed_date(self):
         parsed_date = ''
-        if self.delta.total_seconds() < 0:
+        if self.delta < timedelta(0):
             if self.delta >= timedelta(1):
                 parsed_date = 'Yesterday'
             else:
-                num_days = int(self.delta.total_seconds() / (60 * 60 * 24))
-                # Don't use a floor divide, because we don't want rounding or a float
+                num_days = self.delta.days()
                 parsed_date = str(num_days) + 's Ago'
         elif self.delta < timedelta(2):
             if self.delta <= timedelta(1):
