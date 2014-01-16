@@ -51,7 +51,8 @@ class Task(object):
 
 
 class Todos(object):
-    def __init__(self, email, password):
+    @classmethod
+    def login(cls, email, password):
         try:
             url = 'https://todoist.com/API/login?email=%s&password=%s' % (email, password)
             package = Requests.get(url)
@@ -59,6 +60,10 @@ class Todos(object):
         except:
             auth = ''
             quit('Todoist was unable to login!')
+        return auth
+
+    def __init__(self):
+        auth = Todos.login(Property.todoist_email, Property.todoist_password)
         self.token = auth['token']
         self.p_ids = []
         self.projects = {}
@@ -100,6 +105,13 @@ class Todos(object):
             for task_num in range(0, len(project_tasks)):
                 task_id = int(project_tasks[task_num]['id'])
                 # Correctly format and remove any extra characters that datetime can't handel
+
+                if project_tasks[task_num]['due_date'] is None:
+                    continue  # We don't care about tasks without due dates
+                if int(project_tasks[task_num]['indent']) != 1:
+                    # TODO Subtasks
+                    continue  # Right now we can't handel Subtasks
+
                 date_string = str(project_tasks[task_num]['due_date'].strip())
                 if date_string == 'null':
                     continue
@@ -168,9 +180,7 @@ class Todos(object):
 
 
 if __name__ == '__main__':
-    login = raw_input("Todoist User Name: ")
-    password = raw_input("Password: ")
-    t = Todos(login, password)
+    t = Todos()
     task_list = t.get()
     for task in task_list:
         print task

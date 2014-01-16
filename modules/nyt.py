@@ -18,18 +18,25 @@ class Article(object):
         self.url = url
 
     def __str__(self):
-        return self.title + '\n\t' + self.content + '\n\tI:' + self.image + '\n\tL:' + self.url
+        string = '%s\n\t%s\n\tI:%s\n\tL:%s\n' % (self.title, self.content, self.image, self.url)
+        return string
 
 
-class TopStroies(object):
+class TopStories(object):
     key = Property.nyt_api_key
 
     def __init__(self):
         self.articles = []
 
     def pull(self, num):
-        url = 'http://api.nytimes.com/svc/news/v3/content/nyt/u.s..json?&api-key=' + TopStroies.key
-        newspaper = Requests.get(url).json()
+        try:
+            url = 'http://api.nytimes.com/svc/news/v3/content/nyt/u.s..json?&api-key=' + TopStories.key
+            package = Requests.get(url)
+            newspaper = package.json()
+
+        except:
+            return False
+
         for article_number in range(len(newspaper['results'])):
             if len(self.articles) < num:
                 title = newspaper['results'][article_number]['title']
@@ -51,5 +58,6 @@ class TopStroies(object):
 
 
 if __name__ == '__main__':
-    news = TopStroies()
-    news.get(4)
+    news = TopStories()
+    for a in news.get(4):
+        print str(a)
