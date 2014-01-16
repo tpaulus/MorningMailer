@@ -28,7 +28,7 @@ def weather():
 
 
 def todo():
-    t = Todos(Property.todoist_email, Property.todoist_password)
+    t = Todos()
     task_list = t.get()
     section = '<dl>\n'
     for task in task_list:
@@ -55,7 +55,7 @@ def todo():
 
 
 def news():
-    news = TopStroies()
+    news = TopStories()
     articles = news.get(4)
     return articles
 
