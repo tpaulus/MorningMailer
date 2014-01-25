@@ -38,20 +38,22 @@ class TopStories(object):
         except:
             return False
 
-        for article_number in range(len(newspaper['results'])):
+        for article in newspaper['results']:
             if len(self.articles) < num:
-                title = newspaper['results'][article_number]['title']
-                content = newspaper['results'][article_number]['abstract']
-                source_url = newspaper['results'][article_number]['url']
+                print article
+                title = article['title']
+                content = article['abstract']
+                source_url = article['url']
                 img_url = ''
-                for media_num in range(len(newspaper['results'][article_number]['multimedia'])):
-                    if newspaper['results'][article_number]['multimedia'][media_num]['format'] == 'Normal':
-                        img_url = newspaper['results'][article_number]['multimedia'][media_num]['url']
+                for media_num in range(len(article['multimedia'])):
+                    if article['multimedia'][media_num]['format'] == 'Normal':
+                        img_url = article['multimedia'][media_num]['url']
                         break
                 if img_url == '':
                     continue
                 new_article = Article(title, content, img_url, url)
                 self.articles.append(new_article)
+        return self.articles
 
     def get(self, num):
         self.pull(num)
