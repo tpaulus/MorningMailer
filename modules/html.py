@@ -176,4 +176,9 @@ class GenEmail(object):
                 message = email_template.read()
             message = self.replace(message, self.modules)
             tidy, errors = tidy_document(message)
+        message = self.replace(message, self.modules)
+        tidy, errors = tidy_document(message)
+        with open(self.save_location, 'w') as final_email:
             final_email.write(tidy)
+        with open(self.log_location, 'w') as log_file:
+            log_file.write(errors)

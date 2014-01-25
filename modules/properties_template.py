@@ -41,6 +41,7 @@ Property.todoist_password = ''
 #
 Property.email_template_loc = './modules/email_template.html'
 Property.email_result_loc = './email.html'
+Property.email_log_loc = './email_tidy.log'
 Property.email_to = ''
 Property.email_subject = 'Good Morning'
 Property.email_server = ''

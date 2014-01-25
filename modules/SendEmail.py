@@ -51,7 +51,7 @@ if __name__ == '__main__':
     Email = mail()
     test_email = raw_input("What is your email? ")
     message = 'Hello World,\n\tThis is a test!'
-    if Email.send(test_email, 'TEST', message):  # HTML and Plaintext are the same in this case
-        pass
-    else:
+    if not Email.send(test_email, 'TEST', message):
         quit("Mail Send Error")
+    else:
+        print "Message Sent Successfully!"
