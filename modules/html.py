@@ -120,7 +120,10 @@ class GenEmail(object):
 
         return string
 
-    def __init__(self):
+    def __init__(self, save_loc=Property.email_save_loc, template_loc=Property.email_template_loc, log_loc=Property.email_log_loc):
+        self.template_location = template_loc
+        self.save_location = save_loc
+        self.log_location = log_loc
         self.title = 'Good Morning'
         self.summary = {'text': ''}
         self.header_image = {'url': ''}
@@ -160,20 +163,21 @@ class GenEmail(object):
         column_html = ''
         for column_num in range(0, len(self.columns), 2):
             row = {'left_column': '', 'right_column': ''}
-            for c in range(column_num, (column_num + 2)):
-                if c % 2 == 0:
-                    # Left Side
-                    row['left_column'] = self.replace(GenEmail.temp_left_column, self.columns[c])
-                elif c % 2 == 1:
-                    #Right Side
-                    row['right_column'] = self.replace(GenEmail.temp_right_column, self.columns[c])
+            # Left Side
+            row['left_column'] = self.replace(GenEmail.temp_left_column, self.columns[column_num])
+
+            #Right Side
+            if len(self.columns) >= column_num + 2:
+                row['right_column'] = self.replace(GenEmail.temp_right_column, self.columns[column_num + 1])
             column_html += self.replace(GenEmail.temp_column_row, row)
 
         self.modules['columns'] = column_html
 
-        with open(Property.email_save_loc, 'w') as final_email:
-            with open(Property.email_template_loc, 'r') as email_template:
+        with open(self.template_location, 'r') as email_template:
                 message = email_template.read()
-            message = self.replace(message, self.modules)
-            tidy, errors = tidy_document(message)
+        message = self.replace(message, self.modules)
+        tidy, errors = tidy_document(message)
+        with open(self.save_location, 'w') as final_email:
             final_email.write(tidy)
+        with open(self.log_location, 'w') as log_file:
+            log_file.write(errors)

@@ -55,6 +55,6 @@ class Greeting(object):
 
 
 if __name__ == '__main__':
-    p = Parse()
+    p = Greeting()
     p.get()
     print p.get_random()
