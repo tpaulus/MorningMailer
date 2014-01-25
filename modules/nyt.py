@@ -29,6 +29,7 @@ class TopStories(object):
         self.articles = []
 
     def pull(self, num):
+        """Go fetch the paper boy!"""
         try:
             url = 'http://api.nytimes.com/svc/news/v3/content/nyt/u.s..json?&api-key=' + TopStories.key
             package = Requests.get(url)
