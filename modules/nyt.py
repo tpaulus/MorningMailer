@@ -40,7 +40,6 @@ class TopStories(object):
 
         for article in newspaper['results']:
             if len(self.articles) < num:
-                print article
                 title = article['title']
                 content = article['abstract']
                 source_url = article['url']
