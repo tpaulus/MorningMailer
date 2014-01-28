@@ -53,7 +53,6 @@ class TopStories(object):
                     continue
                 new_article = Article(title, content, img_url, url)
                 self.articles.append(new_article)
-        return self.articles
 
     def get(self, num):
         self.pull(num)
