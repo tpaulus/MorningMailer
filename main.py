@@ -37,7 +37,8 @@ class main(object):
         section = '<dl>\n'
         for task in task_list:
             due = task.parsed_date()
-            text = task.name + ', Due: ' + due + ' - ' + task.project
+            project = task.project
+            text = task.name + ', Due: ' + due + ' - <font color=%s>' % project.color + project.name + '</font>'
             if task.priority == 4:
                 color = ' style="color: #B8412B"'
             elif task.priority == 3:

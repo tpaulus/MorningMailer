@@ -31,11 +31,6 @@ class Project(object):
         self.item_order = 1
         self.indent = 1
 
-    def translate_color(self):
-        color_html = "#000000"
-        if 0 <= self.color <= len(Project.color_index):
-            color_html = Project.color_index[self.color]
-        return color_html
 
 
 class Task(object):
@@ -189,7 +184,7 @@ class Todos(object):
                 else:
                     task_notes = tuple()
 
-                new_task = Task(task_name, self.projects[project_id], date_due, delta, task_priority, task_notes)
+                new_task = Task(task_name, project, date_due, delta, task_priority, task_notes)
                 self.tasks.append(new_task)
 
     def near(self, delta):
