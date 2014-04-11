@@ -13,6 +13,31 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 
+class Project(object):
+    color_index = ["#bde876", "#ff8581", "#ffc472", "#faed75", "#a8c9e5", "#999999", "#e3a8e5", "#dddddd", "#fc603c",
+                   "#ffcc00", "#74e8d4", "#3cd6fc"]
+
+    def __init__(self, id, name):
+        """
+
+        @param id: The Projects Unique ID
+        @type id: int
+        @param name: Name of the Project
+        @type name: str
+        """
+        self.id = id
+        self.name = name
+        self.color = 0
+        self.item_order = 1
+        self.indent = 1
+
+    def translate_color(self):
+        color_html = "#000000"
+        if 0 <= self.color <= len(Project.color_index):
+            color_html = Project.color_index[self.color]
+        return color_html
+
+
 class Task(object):
     p_index = {4: 'Highest',
                3: 'High',
@@ -65,8 +90,7 @@ class Todos(object):
     def __init__(self):
         auth = Todos.login(Property.todoist_email, Property.todoist_password)
         self.token = auth['token']
-        self.p_ids = []
-        self.projects = {}
+        self.projects = []
         self.tasks = []
         self.timeZone = auth['timezone']
         Property.user_TimeZone = self.timeZone
@@ -83,15 +107,21 @@ class Todos(object):
 
         for num in range(0, len(p_list)):
             name = p_list[num]['name']
-            project_id = p_list[num]['id']
-            self.p_ids.append(project_id)
-            self.projects[name] = project_id
-            self.projects[project_id] = name
+            project_id = int(p_list[num]['id'])
+            new_project = Project(project_id, name)
+            new_project.color = p_list[num]['color']
+            new_project.item_order = p_list[num]['item_order']
+            new_project.indent = p_list[num]['indent']
+
+            self.projects.append(new_project)
+
+        return self.projects
 
     def get_tasks(self):
         url = ''
         package = ''
-        for project_id in self.p_ids:
+        for project in self.projects:
+            project_id = project.id
             try:
                 url = 'https://todoist.com/API/getUncompletedItems?project_id=' + str(
                     project_id) + '&token=' + self.token
