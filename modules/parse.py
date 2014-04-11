@@ -33,6 +33,7 @@ class Greeting(object):
                 self.index[name] = phrase
 
         self.keys = list(self.index.keys())
+        return self.keys
 
     def get_dict(self):
         return self.index
