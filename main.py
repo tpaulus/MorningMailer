@@ -80,7 +80,10 @@ class main(object):
         date = datetime.now().strftime("%A, %B %d, %Y")
 
         weather_text, weather_icon, weather_radar = self.weather()
-        weather_text = 'It will be ' + weather_text
+        if weather_text.lower().find('plenty'):
+            weather_text = 'There will be ' + weather_text
+        else:
+            weather_text = 'It will be ' + weather_text
 
         todo_list = self.todo()
 

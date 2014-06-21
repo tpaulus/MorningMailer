@@ -18,7 +18,7 @@ class Article(object):
         self.url = url
 
     def __str__(self):
-        string = '%s\n\t%s\n\tI:%s\n\tL:%s\n' % (self.title, self.content, self.image, self.url)
+        string = '%s\n\t%s\n\tImage: %s\n\tLink: %s\n' % (self.title, self.content, self.image, self.url)
         return string
 
 
@@ -44,6 +44,8 @@ class TopStories(object):
                 content = article['abstract']
                 source_url = article['url']
                 img_url = ''
+                if title.lower().find('briefing') != -1:
+                    continue
                 for media_num in range(len(article['multimedia'])):
                     if article['multimedia'][media_num]['format'] == 'Normal':
                         img_url = article['multimedia'][media_num]['url']
