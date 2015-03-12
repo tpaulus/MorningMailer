@@ -66,7 +66,8 @@ class main(object):
 
     @classmethod
     def send(cls, email_message_location):
-        email = mail()
+        # email = smtp()
+        email = SendGrid()
         with open(email_message_location, 'r') as email_message:
             if email.send(Property.email_to, Property.email_subject, email_message.read()):
                 pass

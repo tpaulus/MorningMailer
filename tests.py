@@ -93,9 +93,15 @@ class NYT(unittest.TestCase):
 
 
 class Email(unittest.TestCase):
-    def test_send(self):
-        Email = mail()
-        to = 'smtp_test@tompaulus.com'
+    def test_send_smtp(self):
+        Email = smtp()
+        to = 'smtp_test@ramonatechguys.com'
+        message = 'Hello World,\n\tThis is a test!'
+        self.assertTrue(Email.send(to, 'TEST', message))
+
+    def test_send_sendgrid(self):
+        Email = SendGrid()
+        to = 'smtp_test@ramonatechguys.com'
         message = 'Hello World,\n\tThis is a test!'
         self.assertTrue(Email.send(to, 'TEST', message))
 

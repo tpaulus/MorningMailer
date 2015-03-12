@@ -6,9 +6,11 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.utils import formatdate
 from properties import Property
+import lib.requests as Requests
 
 
-class mail(object):
+
+class smtp(object):
     def __init__(self):
         self.smtp_user = Property.email_login
         self.smtp_password = Property.email_password
@@ -47,8 +49,30 @@ class mail(object):
             return False
 
 
+class SendGrid(object):
+    def __init__(self):
+            self.sendgrid_username = Property.sg_username
+            self.sendgrid_password = Property.sg_password
+
+    def send(self, to, subject, message_html):
+        data = dict()
+        data['api_user'] = self.sendgrid_username
+        data['api_key'] = self.sendgrid_password
+        data['to'] = to
+        data['from'] = Property.email_from
+        data['subject'] = subject
+        data['html'] = message_html
+        sg_response = Requests.post('https://api.sendgrid.com/api/mail.send.json', data)
+
+        if sg_response.json()['message'] == 'success':
+            return True
+        else:
+            return False, sg_response.json()['message']
+
+
 if __name__ == '__main__':
-    Email = mail()
+    # Email = smtp()
+    Email = SendGrid()
     test_email = raw_input("What is your email? ")
     message = 'Hello World,\n\tThis is a test!'
     if not Email.send(test_email, 'TEST', message):
