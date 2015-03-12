@@ -50,6 +50,11 @@ Property.email_from = ''
 Property.email_login = ''
 Property.email_password = ''
 #
+#   Sendgrid API (Alternative to SMPT)
+#
+Property.sg_username = ''
+Property.sg_password = ''
+#
 #   User Info
 #
 Property.user_TimeZone = ''
