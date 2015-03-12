@@ -61,7 +61,7 @@ class main(object):
     @classmethod
     def news(cls):
         news = TopStories()
-        articles = news.get(4)
+        articles = news.get(6)
         return articles
 
     @classmethod
