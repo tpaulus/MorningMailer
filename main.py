@@ -4,6 +4,7 @@
 from __future__ import unicode_literals
 import os
 import random
+from pytz import timezone
 from modules.parse import Greeting
 from modules.SendEmail import *
 from modules.wunderground import *
@@ -78,7 +79,7 @@ class main(object):
         header_image = '%s%s%d.jpg' % (Property.root_web_path, Property.header_url, random.randint(0, 10))
 
         language, greeting = self.greeting()
-        date = datetime.now().strftime("%A, %B %d, %Y")
+        date = datetime.now(tz=timezone('America/Los_Angeles')).strftime("%A, %B %d, %Y")
 
         weather_text, weather_icon, weather_radar = self.weather()
         if weather_text.lower().find('plenty'):
