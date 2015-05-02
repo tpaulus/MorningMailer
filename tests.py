@@ -105,6 +105,11 @@ class Email(unittest.TestCase):
         message = 'Hello World,\n\tThis is a test!'
         self.assertTrue(Email.send(to, 'TEST', message))
 
+    def test_mandrill(self):
+        Email = Mandrill(isTest=True)
+        to = 'smtp_test@ramonatechguys.com'
+        message = 'Hello World,\n\tThis is a test!'
+        self.assertTrue(Email.send(to, 'TEST', message))
 
 class Properties(unittest.TestCase):
     pass
