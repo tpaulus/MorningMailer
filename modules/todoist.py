@@ -160,7 +160,7 @@ class Todos(object):
                 # Fix timezone, and set due date to local time zone
                 utc = utc.replace(tzinfo=tz.gettz('UTC'))  # Default Todoist TZ is UTC
                 local = tz.gettz(self.timeZone)  # set a fixed TimeZone, Which is set by the User in the Todoist App
-                #local = tz.tzlocal()   # Use to auto-detect local TimeZone
+                # local = tz.tzlocal()   # Use to auto-detect local TimeZone
                 date_due = utc.astimezone(local)
                 delta = date_due - datetime.now(tz=tz.gettz(self.timeZone))
 
