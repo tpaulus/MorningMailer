@@ -43,6 +43,7 @@ Property.email_template_loc = './modules/email_template.html'
 Property.email_result_loc = './email.html'
 Property.email_log_loc = './email_tidy.log'
 Property.email_to = ''
+Property.email_to_name = 'John Doe'
 Property.email_subject = 'Good Morning'
 Property.email_server = ''
 Property.email_port = 0
@@ -54,6 +55,11 @@ Property.email_password = ''
 #
 Property.sg_username = ''
 Property.sg_password = ''
+#
+#   Mandrill API (Alternative to SMPT)
+#
+Property.mandrill_test_key = ''
+Property.mandrill_prod_key = ''
 #
 #   User Info
 #
