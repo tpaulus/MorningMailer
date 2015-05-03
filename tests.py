@@ -1,6 +1,7 @@
 __author__ = 'tpaulus'
 
 import unittest
+from teamcity import is_running_under_teamcity
 from teamcity.unittestpy import TeamcityTestRunner
 
 
@@ -161,4 +162,8 @@ class WeatherUnderground(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=TeamcityTestRunner())
+    if is_running_under_teamcity():
+        runner = TeamcityTestRunner()
+    else:
+        runner = unittest.TextTestRunner()
+    unittest.main(testRunner=runner)
