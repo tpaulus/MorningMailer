@@ -1,6 +1,8 @@
 __author__ = 'tpaulus'
 
 import unittest
+from teamcity.unittestpy import TeamcityTestRunner
+
 
 import lib.requests as Requests
 
@@ -159,4 +161,4 @@ class WeatherUnderground(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(testRunner=TeamcityTestRunner())
