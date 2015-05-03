@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # Written By Tom Paulus, @tompaulus, www.tompaulus.com
 
-import lib.requests as Requests
+import requests as Requests
 from properties import Property
 
 

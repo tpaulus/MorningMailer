@@ -3,7 +3,7 @@
 
 import sys
 
-import lib.requests as Requests
+import requests as Requests
 from properties import Property
 
 reload(sys)

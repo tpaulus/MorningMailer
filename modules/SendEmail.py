@@ -7,7 +7,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.utils import formatdate
 from properties import Property
-import lib.requests as Requests
+import requests as Requests
 
 
 

@@ -6,7 +6,7 @@ import sys
 from datetime import datetime, timedelta
 from lib.dateutil import tz
 
-import lib.requests as Requests
+import requests as Requests
 from properties import Property
 
 reload(sys)
