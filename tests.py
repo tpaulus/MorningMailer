@@ -8,8 +8,6 @@ try:
 except ImportError:
     pass
 
-import lib.requests as Requests
-
 from modules.parse import *
 from modules.html import *
 from modules.nyt import *
