@@ -2,17 +2,10 @@ __author__ = 'tpaulus'
 
 import unittest
 
-try:
-    from teamcity import is_running_under_teamcity
-    from teamcity.unittestpy import TeamcityTestRunner
-except ImportError:
-    pass
-
-from modules.parse import *
+from modules.SendEmail import *
 from modules.html import *
 from modules.nyt import *
-from modules.properties import *
-from modules.SendEmail import *
+from modules.parse import *
 from modules.todoist import *
 from modules.wunderground import *
 
@@ -109,11 +102,6 @@ class Email(unittest.TestCase):
         message = 'Hello World,\n\tThis is a test!'
         self.assertTrue(Email.send(to, 'TEST', message))
 
-    def test_mandrill(self):
-        Email = Mandrill(isTest=True)
-        to = 'smtp_test@ramonatechguys.com'
-        message = 'Hello World,\n\tThis is a test!'
-        self.assertTrue(Email.send(to, 'TEST', message))
 
 class Properties(unittest.TestCase):
     pass
@@ -163,12 +151,4 @@ class WeatherUnderground(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    try:
-        if is_running_under_teamcity():
-            runner = TeamcityTestRunner()
-        else:
-            runner = unittest.TextTestRunner()
-        unittest.main(testRunner=runner)
-
-    except Exception:
-        unittest.main()
+    unittest.main()
