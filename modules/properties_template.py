@@ -48,18 +48,13 @@ Property.email_subject = 'Good Morning'
 Property.email_server = ''
 Property.email_port = 0
 Property.email_from = ''
+Property.email_from_name = ''
 Property.email_login = ''
 Property.email_password = ''
 #
 #   Sendgrid API (Alternative to SMPT)
 #
-Property.sg_username = ''
-Property.sg_password = ''
-#
-#   Mandrill API (Alternative to SMPT)
-#
-Property.mandrill_test_key = ''
-Property.mandrill_prod_key = ''
+Property.sg_api_key = ''
 #
 #   User Info
 #
