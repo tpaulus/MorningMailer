@@ -2,16 +2,13 @@
 # Written By Tom Paulus, @tompaulus, www.tompaulus.com
 
 import smtplib
-from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from email.utils import formatdate
-from properties import Property
-<<<<<<< HEAD
-import requests as Requests
 
-=======
 import requests
->>>>>>> hotfix/2.5.1
+
+from properties import Property
 
 
 class smtp(object):
