@@ -2,13 +2,11 @@
 # Written By Tom Paulus, @tompaulus, www.tompaulus.com
 
 import smtplib
-import mandrill  # If you don't want to use mandrill, comment out this line
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.utils import formatdate
 from properties import Property
-import lib.requests as Requests
-
+import requests
 
 
 class smtp(object):
@@ -52,18 +50,20 @@ class smtp(object):
 
 class SendGrid(object):
     def __init__(self):
-            self.sendgrid_username = Property.sg_username
-            self.sendgrid_password = Property.sg_password
+        self.key = Property.sg_api_key
 
     def send(self, to, subject, message_html):
         data = dict()
-        data['api_user'] = self.sendgrid_username
-        data['api_key'] = self.sendgrid_password
         data['to'] = to
+        data['toname'] = Property.email_to_name
         data['from'] = Property.email_from
+        data['fromname'] = Property.email_from_name
         data['subject'] = subject
         data['html'] = message_html
-        sg_response = Requests.post('https://api.sendgrid.com/api/mail.send.json', data)
+
+        session = requests.Session()
+        session.headers.update({'Authorization': 'Bearer ' + self.key})
+        sg_response = session.post('https://api.sendgrid.com/api/mail.send.json', data)
 
         if sg_response.json()['message'] == 'success':
             return True
@@ -71,47 +71,9 @@ class SendGrid(object):
             return False, sg_response.json()['message']
 
 
-class Mandrill(object):
-    def __init__(self, isTest=False):
-        if isTest:
-            key = Property.mandrill_test_key
-        else:
-            key = Property.mandrill_prod_key
-
-        self.client = mandrill.Mandrill(key)
-
-    def send(self, to, subject, message_html):
-        try:
-            message = {'auto_text': True,
-                       'from_email': Property.email_from,
-                       'from_name': 'Python',
-                       'html': message_html,
-                       'important': False,
-                       'signing_domain': Property.email_from.split('@')[1],
-                       'subject': subject,
-                       'tags': ['Morning Mailer'],
-                       'to': [{'email': Property.email_to,
-                               'name': Property.email_to_name,
-                               'type': 'to'}],
-                       'track_opens': True}
-
-            result = self.client.messages.send(message=message)
-
-            if result[0]['status'] == 'sent':
-                return True
-            else:
-                return False, result[0]['reject_reason']
-
-        except mandrill.Error, e:
-            # Mandrill errors are thrown as exceptions
-            print 'A mandrill error occurred: %s - %s' % (e.__class__, e)
-            # A mandrill error occurred: <class 'mandrill.UnknownSubaccountError'> - No subaccount exists with the id 'customer-123'
-            raise
-
 if __name__ == '__main__':
     # Email = smtp()
-    # Email = SendGrid()
-    Email = Mandrill()
+    Email = SendGrid()
     test_email = raw_input("What is your email? ")
     message = 'Hello World,\n\tThis is a test!'
     if not Email.send(test_email, 'TEST', message):

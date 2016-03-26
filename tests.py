@@ -2,13 +2,10 @@ __author__ = 'tpaulus'
 
 import unittest
 
-import lib.requests as Requests
-
-from modules.parse import *
+from modules.SendEmail import *
 from modules.html import *
 from modules.nyt import *
-from modules.properties import *
-from modules.SendEmail import *
+from modules.parse import *
 from modules.todoist import *
 from modules.wunderground import *
 
@@ -105,11 +102,6 @@ class Email(unittest.TestCase):
         message = 'Hello World,\n\tThis is a test!'
         self.assertTrue(Email.send(to, 'TEST', message))
 
-    def test_mandrill(self):
-        Email = Mandrill(isTest=True)
-        to = 'smtp_test@ramonatechguys.com'
-        message = 'Hello World,\n\tThis is a test!'
-        self.assertTrue(Email.send(to, 'TEST', message))
 
 class Properties(unittest.TestCase):
     pass
